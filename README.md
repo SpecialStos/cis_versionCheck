@@ -1,5 +1,9 @@
 # Documentation for Resource Version Check
 
+## Preview
+
+![versionCheck](https://github.com/SpecialStos/cis_versionCheck/assets/52541868/1963815d-5a5a-4a52-ab71-005e712821b4)
+
 ## Overview
 
 This resource is designed to check the version of your server's resources against the versions available on their respective websites. It uses semantic versioning to compare versions and provides a status for each resource: "UP TO DATE", "OUTDATED", or "PRE-RELEASE".
