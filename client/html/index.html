@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resource Status</title>
+    <style>
+        /* Your CSS styles here */
+        /* Modify styles as needed */
+
+        body {
+            display: none;
+        }
+
+        .resource-status {
+            font-family: 'Poppins', sans-serif;
+            color: rgba(255, 255, 255, 90%);
+            position: absolute;
+            left: 2%; /* Adjust to move closer to the edge */
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 20px;
+            background-color: rgba(30, 30, 30, 0.9);
+            border-radius: 5px;
+            box-shadow: rgb(0 0 0 / 30%) 0px 19px 38px, rgb(0 0 0 / 22%) 0px 15px 12px;
+            max-width: 80%; /* Adjust as needed */
+            overflow: hidden;
+        }
+
+        .resource-status-header {
+            font-weight: bold;
+            font-size: larger; /* Modify the font size as needed */
+            text-align: center;
+            margin-bottom: 25px;
+            text-decoration: underline;
+        }
+        
+        .resource-status-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .resource-status-item {
+            margin-bottom: 10px;
+        }
+
+        .resource-name {
+            font-weight: bold;
+        }
+
+        .up-to-date {
+            color: green;
+        }
+
+        .outdated {
+            color: red;
+        }
+
+        .newer-version {
+            color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="resourceStatus" class="resource-status">
+        <div id="resourceHeader" class="resource-status-header">
+            Resource Version Check
+        </div>
+        <!-- This is where the resource status will be dynamically added -->
+    </div>
+
+    <script>
+        // Listen for messages sent from Lua
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'show_resource_status') {
+                if (event.data.hideUI) {
+                // Hide the UI
+                    document.body.style.display = 'none';
+                } else {
+                    // Show the UI
+                    document.body.style.display = 'block';
+                    // ... existing code ...
+                    try {
+                        const resourceStatusData = JSON.parse(event.data.resourceStatusData);
+                        const resourceStatusContainer = document.getElementById('resourceStatus');
+
+                        if (resourceStatusContainer) {
+                            resourceStatusContainer.innerHTML = '';
+
+                            // Create header element
+                            const headerElement = document.createElement('div');
+                            headerElement.classList.add('resource-status-header');
+                            headerElement.textContent = "Resource Version Check";
+                            resourceStatusContainer.appendChild(headerElement);
+
+                            // Loop through the data and create elements to display resource status
+                            for (const resourceName in resourceStatusData) {
+                                if (Object.hasOwnProperty.call(resourceStatusData, resourceName)) {
+                                    const resourceData = resourceStatusData[resourceName];
+                                    const statusElement = document.createElement('div');
+                                    statusElement.classList.add('resource-status-item');
+
+                                    let statusClass = '';
+                                    switch (resourceData.status) {
+                                        case 'UP TO DATE':
+                                            statusClass = 'up-to-date';
+                                            break;
+                                        case 'OUTDATED':
+                                            statusClass = 'outdated';
+                                            break;
+                                        case 'PRE-RELEASE':
+                                            statusClass = 'newer-version';
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                    statusElement.innerHTML = `<span class="resource-name">${resourceData.name}</span> - v${resourceData.version} - <span class="${statusClass}">${resourceData.status}</span>`;
+                                    resourceStatusContainer.appendChild(statusElement);
+                                }
+                            }
+                        } else {
+                            console.error('Element with ID "resourceStatus" not found.');
+                        }
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error);
+                    }
+
+                        // Create footer element
+                    const footerElement = document.createElement('div');
+                    footerElement.classList.add('resource-status-footer');
+
+                    // Create left and right text elements
+                    const leftTextElement = document.createElement('a');
+                    leftTextElement.textContent = 'Made by Cisoko';
+                    const rightTextElement = document.createElement('span');
+                    rightTextElement.textContent = 'https://fivem.cisoko.net';
+
+                    // Append text elements to footer
+                    footerElement.appendChild(leftTextElement);
+                    footerElement.appendChild(rightTextElement);
+
+                    // Append footer to container
+                    let resourceStatusContainer = document.getElementById('resourceStatus');
+                    resourceStatusContainer.appendChild(footerElement);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
