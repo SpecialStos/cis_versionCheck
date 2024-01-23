@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Resource Status</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <style>
         /* Your CSS styles here */
         /* Modify styles as needed */
@@ -12,14 +15,14 @@
         }
 
         .resource-status {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif; /* Changed font here */
             color: rgba(255, 255, 255, 90%);
             position: absolute;
             left: 2%; /* Adjust to move closer to the edge */
             top: 50%;
             transform: translateY(-50%);
-            padding: 20px;
-            background-color: rgba(30, 30, 30, 0.9);
+            padding: 10px;
+            background-color: rgba(30, 30, 30, 0.8);
             border-radius: 5px;
             box-shadow: rgb(0 0 0 / 30%) 0px 19px 38px, rgb(0 0 0 / 22%) 0px 15px 12px;
             max-width: 80%; /* Adjust as needed */
@@ -28,7 +31,7 @@
 
         .resource-status-header {
             font-weight: bold;
-            font-size: larger; /* Modify the font size as needed */
+            font-size: 15.5px; /* Modify the font size as needed */
             text-align: center;
             margin-bottom: 25px;
             text-decoration: underline;
@@ -36,28 +39,34 @@
         
         .resource-status-footer {
             margin-top: 20px;
+            font-size: 13px;
             display: flex;
             justify-content: space-between;
         }
 
         .resource-status-item {
             margin-bottom: 10px;
+            font-size: 13.5px;
         }
 
         .resource-name {
             font-weight: bold;
+            font-size: 13.5px;
         }
 
         .up-to-date {
             color: green;
+            font-weight: bold;
         }
 
         .outdated {
             color: red;
+            font-weight: bold;
         }
 
         .newer-version {
             color: lightblue;
+            font-weight: bold;
         }
     </style>
 </head>

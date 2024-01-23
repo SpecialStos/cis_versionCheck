@@ -15,16 +15,16 @@ Citizen.CreateThread(function()
 
     Citizen.Wait(1000)
 
-    showUI = false
+    hideUI = true
 
     if Config.ShowOnStart then
-        showUI = true
+        hideUI = not hideUI
         -- Send a message to the HTML UI with the resource status data
         -- The data is encoded as a JSON string
         SendNUIMessage({
             type = "show_resource_status",
             resourceStatusData = json.encode(resourceStatusArray),
-            hideUI = showUI
+            hideUI = hideUI
         })
     end
 
@@ -34,11 +34,11 @@ Citizen.CreateThread(function()
         RegisterCommand(Config.Command, function()
             -- Send a message to the HTML UI with the resource status data
             -- The data is encoded as a JSON string
-            showUI = not showUI
+            hideUI = not hideUI
             SendNUIMessage({
                 type = "show_resource_status",
                 resourceStatusData = json.encode(resourceStatusArray),
-                hideUI = showUI
+                hideUI = hideUI
             })
         end)
     end
@@ -50,11 +50,11 @@ Citizen.CreateThread(function()
         RegisterCommand("showResourceStatus", function()
             -- Send a message to the HTML UI with the resource status data
             -- The data is encoded as a JSON string
-            showUI = not showUI
+            hideUI = not hideUI
             SendNUIMessage({
                 type = "show_resource_status",
                 resourceStatusData = json.encode(resourceStatusArray),
-                hideUI = showUI
+                hideUI = hideUI
             })
         end)
     end
@@ -63,13 +63,13 @@ Citizen.CreateThread(function()
     if Config.UseEvent then
         -- Register a network event that shows the resource status in the UI
         RegisterNetEvent("showResourceStatus")
-        AddEventHandler("showResourceStatus", function(showUI)
+        AddEventHandler("showResourceStatus", function(hideUI)
             -- Send a message to the HTML UI with the resource status data
             -- The data is encoded as a JSON string
             SendNUIMessage({
                 type = "show_resource_status",
                 resourceStatusData = json.encode(resourceStatusArray),
-                hideUI = showUI
+                hideUI = hideUI
             })
         end)
     end

@@ -4,7 +4,7 @@ game 'gta5'
 name "Cisoko Testing"
 description "Cisoko's Testing Script"
 author "Cisoko"
-version "1.0.1"
+version "1.0.2"
 lua54 'yes'
 
 client_scripts {
